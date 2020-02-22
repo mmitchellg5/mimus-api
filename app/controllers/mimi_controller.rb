@@ -1,6 +1,6 @@
 class MimiController < ApplicationController
   def index
-    @mimi = Mimus.all
+    redirect_to new_mimus_path
   end
 
   def new
