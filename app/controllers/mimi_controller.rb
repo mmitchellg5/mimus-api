@@ -20,13 +20,14 @@ class MimiController < ApplicationController
   end
 
   def show
-    @mimus = Mimus.find_by(unique_hash: (params[:id]))
+    if params["globbed_path"]
+      capture = params["globbed_path"].match(/\/(\d{9}\b)/).captures&.first
+      @mimus = Mimus.find_by(unique_hash: capture)
+    else
+      @mimus = Mimus.find_by(unique_hash: (params[:id]))
+    end
 
     render plain: @mimus.content
-    #respond_to do |format|
-      #format.html { render json: @mimus.content }
-      #format.json { render json: @mimus.content }
-    #end
   end
 
   private
