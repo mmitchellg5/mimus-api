@@ -1,4 +1,6 @@
 class MimiController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     redirect_to new_mimus_path
   end
@@ -21,7 +23,7 @@ class MimiController < ApplicationController
 
   def show
     if params["globbed_path"]
-      capture = params["globbed_path"].match(/\/(\d{9,11}\b)/).captures&.first
+      capture = params["globbed_path"].match(/(\d{9,11}\b)/).captures&.first
       @mimus = Mimus.find_by(unique_hash: capture)
     else
       @mimus = Mimus.find_by(unique_hash: (params[:id]))
