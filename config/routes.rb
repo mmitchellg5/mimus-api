@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root 'mimi#new'
 
   get 'mimi/*globbed_path', to: 'mimi#show'
+  post 'mimi/*globbed_path', to: 'mimi#show'
 end
