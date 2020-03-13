@@ -23,7 +23,10 @@ class MimiController < ApplicationController
 
   def show
     if params["globbed_path"]
-      capture = params["globbed_path"].match(/(\d{9,11}\b)/).captures&.first
+      match_data = params["globbed_path"].match(/(\d{9,11}\b)/)
+      capture = match_data&.captures&.first
+
+      redirect_to new_mimus_path and return unless capture.present?
       @mimus = Mimus.find_by(unique_hash: capture)
     else
       @mimus = Mimus.find_by(unique_hash: (params[:id]))
